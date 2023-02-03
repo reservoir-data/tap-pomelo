@@ -1,0 +1,46 @@
+version: 1
+send_anonymous_usage_stats: false
+project_id: tap-pomelo
+environments:
+- name: dev
+plugins:
+  extractors:
+  - name: tap-pomelo
+    label: Pomelo
+    namespace: pomelo
+    description: Tecnología para lanzar y escalar servicios financieros en América Latina
+    repository: https://github.com/edgarrmondragon/tap-pomelo
+    docs: https://github.com/edgarrmondragon/tap-pomelo#readme
+    pip_url: -e .
+    capabilities:
+    - state
+    - catalog
+    - discover
+    settings:
+    # TODO: To configure using Meltano, declare settings and their types here:
+    - name: client_id
+      kind: password
+      label: Client ID
+      description: Client ID to authenticate in Pomelo
+    - name: client_secret
+      kind: password
+      label: Client Secret
+      description: Client Secret to authenticate in Pomelo
+    - name: api_url
+      kind: string
+      label: API URL
+      description: URL to get data from Pomelo
+    - name: auth_url
+      kind: string
+      label: Auth URL
+      description: URL to authenticate in Pomelo
+    - name: start_date
+      kind: date_iso8601
+      label: Start Date
+      description: Earliest datetime to get data from
+    config:
+      start_date: "2023-02-02"
+  loaders:
+  - name: target-jsonl
+    variant: andyh1203
+    pip_url: target-jsonl
