@@ -7,6 +7,50 @@ from singer_sdk import typing as th
 from tap_pomelo.client import PomeloStream
 
 
+LEGAL_ADDRESS = th.ObjectType(
+    th.Property(
+        "street_name",
+        th.StringType,
+    ),
+    th.Property(
+        "street_number",
+        th.StringType,
+    ),
+    th.Property(
+        "floor",
+        th.StringType,
+    ),
+    th.Property(
+        "apartment",
+        th.StringType,
+    ),
+    th.Property(
+        "zip_code",
+        th.StringType,
+    ),
+    th.Property(
+        "neighborhood",
+        th.StringType,
+    ),
+    th.Property(
+        "city",
+        th.StringType,
+    ),
+    th.Property(
+        "region",
+        th.StringType,
+    ),
+    th.Property(
+        "additional_info",
+        th.StringType,
+    ),
+    th.Property(
+        "country",
+        th.StringType,  # ISO 3166 alpha-3
+    ),
+)
+
+
 class Users(PomeloStream):
     """Users stream."""
 
@@ -88,48 +132,8 @@ class Users(PomeloStream):
         ),
         th.Property(
             "legal_address",
-            th.ObjectType(
-                th.Property(
-                    "street_name",
-                    th.StringType,
-                ),
-                th.Property(
-                    "street_number",
-                    th.StringType,
-                ),
-                th.Property(
-                    "floor",
-                    th.StringType,
-                ),
-                th.Property(
-                    "apartment",
-                    th.StringType,
-                ),
-                th.Property(
-                    "zip_code",
-                    th.StringType,
-                ),
-                th.Property(
-                    "neighborhood",
-                    th.StringType,
-                ),
-                th.Property(
-                    "city",
-                    th.StringType,
-                ),
-                th.Property(
-                    "region",
-                    th.StringType,
-                ),
-                th.Property(
-                    "additional_info",
-                    th.StringType,
-                ),
-                th.Property(
-                    "country",
-                    th.StringType,  # ISO 3166 alpha-3
-                ),
-            ),
+            LEGAL_ADDRESS,
+            description="User's legal address",
         ),
         th.Property(
             "nationality",

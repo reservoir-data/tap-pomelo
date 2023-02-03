@@ -4,16 +4,8 @@ from __future__ import annotations
 
 from singer_sdk import Stream, Tap
 from singer_sdk import typing as th
-from singer_sdk.streams import RESTStream
 
-# TODO: Import your custom stream types here:
-from tap_pomelo.streams import Users
-
-# TODO: Compile a list of custom stream types here
-#       OR rewrite discover_streams() below with your custom logic.
-STREAM_TYPES: list[type[RESTStream]] = [
-    Users,
-]
+from tap_pomelo import streams
 
 
 class TapPomelo(Tap):
@@ -64,4 +56,6 @@ class TapPomelo(Tap):
         Returns:
             A list of Pomelo streams.
         """
-        return [stream_class(tap=self) for stream_class in STREAM_TYPES]
+        return [
+            streams.Users(tap=self),
+        ]
