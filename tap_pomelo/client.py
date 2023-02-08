@@ -63,7 +63,3 @@ class PomeloStream(RESTStream):
         """
         params: dict = {}
         return params
-
-    def validate_response(self, response) -> None:
-        self.logger.info("Validating response %s", response.request.headers)
-        return super().validate_response(response)

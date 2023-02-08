@@ -6,7 +6,6 @@ from singer_sdk import typing as th
 
 from tap_pomelo.client import PomeloStream
 
-
 LEGAL_ADDRESS = th.ObjectType(
     th.Property(
         "street_name",
