@@ -3,7 +3,7 @@ name: Test tap-pomelo
 on: [push]
 
 jobs:
-  linting:
+  test:
     runs-on: ubuntu-latest
     env:
       SETUPTOOLS_USE_DISTUTILS: stdlib
@@ -38,7 +38,10 @@ jobs:
 
     - name: Run lint command from tox.ini
       env:
+        TAP_POMELO_API_URL: ${{ secrets.TAP_POMELO_API_URL }}
+        TAP_POMELO_AUTH_URL: ${{ secrets.TAP_POMELO_AUTH_URL }}
         TAP_POMELO_CLIENT_ID: ${{ secrets.TAP_POMELO_CLIENT_ID }}
+        TAP_POMELO_CLIENT_SECRET: ${{ secrets.TAP_POMELO_CLIENT_SECRET }}
         TAP_POMELO_START_DATE: ${{ secrets.TAP_POMELO_START_DATE }}
       run: |
         tox -e pytest

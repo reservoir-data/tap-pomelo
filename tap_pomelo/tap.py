@@ -58,4 +58,5 @@ class TapPomelo(Tap):
         """
         return [
             streams.Users(tap=self),
+            # streams.Companies(tap=self),
         ]
