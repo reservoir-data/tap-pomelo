@@ -6,7 +6,6 @@ from singer_sdk import typing as th
 
 from tap_pomelo.client import PomeloStream
 
-
 LEGAL_ADDRESS = th.ObjectType(
     th.Property(
         "street_name",
@@ -140,4 +139,71 @@ class Users(PomeloStream):
             th.StringType,  # ISO 3166 alpha-3
         ),
         # 'client_id',
+    ).to_dict()
+
+
+class Companies(PomeloStream):
+    """Companies stream."""
+
+    name = "companies"
+    path = "/companies/v1"
+    primary_keys = ["id"]
+    replication_key = None
+
+    schema = th.PropertiesList(
+        th.Property(
+            "id",
+            th.StringType,
+            description="The company's system ID",
+        ),
+        th.Property(
+            "legal_name",
+            th.StringType,
+            description="Company's legal name",
+        ),
+        th.Property(
+            "trade_name",
+            th.StringType,
+            description="Company's trade name",
+        ),
+        th.Property(
+            "tax_identification_type",
+            th.StringType,
+            description="Company's tax identification document type",
+        ),
+        th.Property(
+            "tax_identification_value",
+            th.StringType,
+            description="Company's tax identification document number",
+        ),
+        th.Property(
+            "email",
+            th.StringType,
+            description="Company's email address",
+        ),
+        th.Property(
+            "phone",
+            th.StringType,
+            description="Company's phone number",
+        ),
+        th.Property(
+            "operation_country",
+            th.StringType,  # ISO 3166 alpha-3
+            description="Company's country of operation",
+        ),
+        th.Property(
+            "type",
+            th.StringType,
+            description="Company type",
+        ),
+        th.Property(
+            "status",
+            th.StringType,
+            allowed_values=["ACTIVE", "BLOCKED"],
+        ),
+        th.Property(
+            "legal_address",
+            LEGAL_ADDRESS,
+            description="Company's legal address",
+        ),
     ).to_dict()

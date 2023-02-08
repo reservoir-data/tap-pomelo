@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from singer_sdk import Stream
 from singer_sdk.authenticators import OAuthAuthenticator, SingletonMeta
 
 
