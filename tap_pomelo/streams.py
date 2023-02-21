@@ -112,7 +112,7 @@ class Users(PomeloStream):
             "gender",
             th.DateType,
             description="User's gender",
-            # pattern="^[A-Za-z\u00C0-\u00ff ]+$",
+            # pattern="^[A-Za-z\u00C0-\u00ff ]+$",  # noqa: ERA001
         ),
         th.Property(
             "phone",

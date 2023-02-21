@@ -13,7 +13,7 @@ class PomeloStream(RESTStream):
     """Pomelo stream class."""
 
     records_jsonpath = "$.data[*]"  # Or override `parse_response`.
-    next_page_token_jsonpath = "$.next_page"  # Or override `get_next_page_token`.
+    next_page_token_jsonpath = "$.next_page"  # noqa: S105
 
     @property
     def url_base(self) -> str:
@@ -49,8 +49,8 @@ class PomeloStream(RESTStream):
 
     def get_url_params(
         self,
-        context: dict | None,
-        next_page_token: Any | None,
+        context: dict | None,  # noqa: ARG002
+        next_page_token: Any | None,  # noqa: ARG002
     ) -> dict[str, Any]:
         """Get URL query parameters.
 
