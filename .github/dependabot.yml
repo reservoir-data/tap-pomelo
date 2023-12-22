@@ -30,3 +30,7 @@ updates:
       time: "12:00"
     reviewers:
       - "edgarrmondragon"
+    groups:
+      all:
+        patterns:
+          - "*"
