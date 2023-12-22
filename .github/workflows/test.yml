@@ -39,7 +39,7 @@ jobs:
     - name: Run lint command from tox.ini
       env:
         TAP_POMELO_API_URL: ${{ secrets.TAP_POMELO_API_URL }}
-        TAP_POMELO_AUDIENCE: ${{ secrets.TAP_POMELO_AUDIECE }}
+        TAP_POMELO_AUDIENCE: ${{ secrets.TAP_POMELO_AUDIENCE }}
         TAP_POMELO_CLIENT_ID: ${{ secrets.TAP_POMELO_CLIENT_ID }}
         TAP_POMELO_CLIENT_SECRET: ${{ secrets.TAP_POMELO_CLIENT_SECRET }}
         TAP_POMELO_START_DATE: ${{ secrets.TAP_POMELO_START_DATE }}
