@@ -1,6 +1,6 @@
 # `tap-pomelo`
 
-Singer tap for Pomelo.
+Singer tap for [Pomelo](https://pomelo.la/mx/).
 
 Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
 
