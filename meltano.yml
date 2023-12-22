@@ -30,10 +30,10 @@ plugins:
       kind: string
       label: API URL
       description: URL to get data from Pomelo
-    - name: auth_url
+    - name: audience
       kind: string
-      label: Auth URL
-      description: URL to authenticate in Pomelo
+      label: Audience
+      description: Audience to authenticate in Pomelo
     - name: start_date
       kind: date_iso8601
       label: Start Date

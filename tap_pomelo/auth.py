@@ -18,6 +18,6 @@ class PomeloAuthenticator(OAuthAuthenticator, metaclass=SingletonMeta):
         return {
             "client_id": self.config["client_id"],
             "client_secret": self.config["client_secret"],
-            "audience": self.config["auth_url"],
+            "audience": self.config["audience"],
             "grant_type": "client_credentials",
         }
