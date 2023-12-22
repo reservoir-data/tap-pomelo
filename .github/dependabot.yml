@@ -8,21 +8,25 @@ updates:
   - package-ecosystem: pip
     directory: "/"
     schedule:
-      interval: "daily"
-      time: "18:45"
+      interval: "weekly"
+      time: "12:00"
     reviewers:
       - "edgarrmondragon"
   - package-ecosystem: pip
     directory: "/.github/workflows"
     schedule:
-      time: "18:45"
-      interval: "daily"
+      time: "12:00"
+      interval: "monthly"
     reviewers:
       - "edgarrmondragon"
+    groups:
+      all:
+        patterns:
+          - "*"
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
       interval: "weekly"
-      time: "18:45"
+      time: "12:00"
     reviewers:
       - "edgarrmondragon"
