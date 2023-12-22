@@ -55,7 +55,7 @@ class Users(PomeloStream):
 
     name = "users"
     path = "/users/v1"
-    primary_keys = ["id"]
+    primary_keys = ("id",)
     replication_key = None
 
     schema = th.PropertiesList(
@@ -110,7 +110,7 @@ class Users(PomeloStream):
         ),
         th.Property(
             "gender",
-            th.DateType,
+            th.StringType,
             description="User's gender",
             # pattern="^[A-Za-z\u00C0-\u00ff ]+$",  # noqa: ERA001
         ),
@@ -147,7 +147,7 @@ class Companies(PomeloStream):
 
     name = "companies"
     path = "/companies/v1"
-    primary_keys = ["id"]
+    primary_keys = ("id",)
     replication_key = None
 
     schema = th.PropertiesList(
@@ -206,4 +206,26 @@ class Companies(PomeloStream):
             LEGAL_ADDRESS,
             description="Company's legal address",
         ),
+    ).to_dict()
+
+
+class Cards(PomeloStream):
+    """Cards stream."""
+
+    name = "cards"
+    path = "/cards/v1"
+    primary_keys = ("id",)
+    replication_key = None
+
+    schema = th.PropertiesList(
+        th.Property("id", th.StringType),
+        th.Property("affinity_group_id", th.StringType),
+        th.Property("card_type", th.StringType),
+        th.Property("product_type", th.StringType),
+        th.Property("shipment_id", th.StringType),
+        th.Property("user_id", th.StringType),
+        th.Property("start_date", th.DateType),
+        th.Property("1573", th.StringType),
+        th.Property("provider", th.StringType),
+        th.Property("affinity_group_name", th.StringType),
     ).to_dict()

@@ -12,8 +12,6 @@ class TapPomelo(Tap):
     """Singer tap for Pomelo."""
 
     name = "tap-pomelo"
-
-    # TODO: Update this section with the actual config values you expect:
     config_jsonschema = th.PropertiesList(
         th.Property(
             "client_id",
@@ -30,11 +28,11 @@ class TapPomelo(Tap):
             description="Client secret to authenticate in Pomelo",
         ),
         th.Property(
-            "auth_url",
+            "audience",
             th.StringType,
             required=True,
-            description="Auth URL for the API",
-            default="https://auth-dev.pomelo.la",
+            description="Audience to authenticate in Pomelo",
+            default="https://auth.pomelo.la",
         ),
         th.Property(
             "api_url",
@@ -58,5 +56,6 @@ class TapPomelo(Tap):
         """
         return [
             streams.Users(tap=self),
-            # streams.Companies(tap=self),  # noqa: ERA001
+            streams.Cards(tap=self),
+            streams.Companies(tap=self),
         ]

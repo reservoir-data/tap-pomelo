@@ -33,7 +33,7 @@ class PomeloStream(RESTStream):
         """
         return PomeloAuthenticator(
             self,
-            auth_endpoint=self.config["auth_url"] + "/oauth/token",
+            auth_endpoint=self.config["api_url"] + "/oauth/token",
         )
 
     @property
@@ -50,7 +50,7 @@ class PomeloStream(RESTStream):
     def get_url_params(
         self,
         context: dict | None,  # noqa: ARG002
-        next_page_token: Any | None,  # noqa: ARG002
+        next_page_token: Any | None,  # noqa: ARG002, ANN401
     ) -> dict[str, Any]:
         """Get URL query parameters.
 
