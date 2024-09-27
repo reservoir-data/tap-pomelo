@@ -3,8 +3,26 @@ name: Test tap-pomelo
 on:
   push:
     branches: [main]
+    paths:
+    - tap_pomelo/**
+    - tests/**
+    - poetry.lock
+    - pyproject.toml
+    - .github/workflows/test.yml
+    - .github/workflows/constraints.txt
   pull_request:
     types: [opened, synchronize, reopened]
+    paths:
+    - tap_pomelo/**
+    - tests/**
+    - poetry.lock
+    - pyproject.toml
+    - .github/workflows/test.yml
+    - .github/workflows/constraints.txt
+  workflow_dispatch:
+  schedule:
+  # Run weekly on Monday at 12:00 PM UTC
+  - cron: "0 12 * * 1"
 
 env:
   FORCE_COLOR: "1"
