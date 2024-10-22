@@ -1,4 +1,4 @@
-# `tap-pomelo`
+# tap-pomelo
 
 Singer tap for [Pomelo](https://pomelo.la/mx/).
 
