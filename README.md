@@ -1,8 +1,24 @@
+<div align="center">
+
 # tap-pomelo
+
+<div>
+  <a href="https://scientific-python.org/specs/spec-0000/">
+    <img alt="SPEC 0 — Minimum Supported Dependencies" src="https://img.shields.io/badge/SPEC-0-green?labelColor=%23004811&color=%235CA038"/>
+  </a>
+  <a href="https://results.pre-commit.ci/latest/github/reservoir-data/tap-pomelo/main">
+    <img alt="pre-commit.ci status" src="https://results.pre-commit.ci/badge/github/reservoir-data/tap-pomelo/main.svg"/>
+  </a>
+  <a href="https://github.com/reservoir-data/tap-pomelo/blob/main/LICENSE">
+    <img alt="License" src="https://img.shields.io/github/license/reservoir-data/tap-pomelo"/>
+  </a>
+</div>
 
 Singer tap for [Pomelo](https://pomelo.la/mx/).
 
 Built with the [Meltano Tap SDK](https://sdk.meltano.com) for Singer Taps.
+
+</div>
 
 ## Capabilities
 
