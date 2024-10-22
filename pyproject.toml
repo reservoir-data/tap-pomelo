@@ -7,13 +7,10 @@ requires = [
 [tool.poetry]
 name = "tap-pomelo"
 version = "0.0.1"
-description = "`tap-pomelo` is a Singer tap for Pomelo, built with the Meltano SDK for Singer Taps."
+description = "Singer tap for Pomelo, built with the Meltano SDK for Singer Taps."
 authors = [ "Edgar-Ramírez <edgarrm358@gmail.com>" ]
 maintainers = [ "Edgar-Ramírez <edgarrm358@gmail.com>" ]
 classifiers = [
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
@@ -31,14 +28,14 @@ documentation = "https://github.com/edgarrmondragon/tap-pomelo#readme"
 scripts."tap-pomelo" = "tap_pomelo.tap:TapPomelo.cli"
 
 [tool.poetry.dependencies]
-python = ">=3.8"
+python = ">=3.11"
 singer-sdk = "~=0.41.0"
 
 [tool.poetry.dev-dependencies]
 singer-sdk = { version = "*", extras = [ "testing" ] }
 
 [tool.ruff]
-target-version = "py38"
+target-version = "py311"
 
 line-length = 88
 lint.select = [
@@ -69,7 +66,6 @@ max_supported_python = "3.13"
 addopts = "-vvv"
 
 [tool.mypy]
-python_version = "3.11"
 warn_unused_configs = true
 
 [[tool.mypy.overrides]]
