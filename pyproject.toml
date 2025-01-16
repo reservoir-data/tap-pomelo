@@ -42,7 +42,7 @@ lint.select = [
   "ALL",
 ]
 lint.ignore = [
-  "DJ",     # flake8-django
+  "DJ", # flake8-django
 ]
 lint.per-file-ignores."noxfile.py" = [
   "ANN",
