@@ -26,12 +26,16 @@ on:
 
 env:
   FORCE_COLOR: "1"
+  # renovate: datasource=pypi depName=pip
+  PIP_VERSION: 24.3.1
+  # renovate: datasource=pypi depName=poetry
+  POETRY_VERSION: 1.8.5
+  # renovate: datasource=pypi depName=tox
+  TOX_VERSION: 4.23.2
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-    env:
-      PIP_CONSTRAINT: ${{ github.workspace }}/.github/workflows/constraints.txt
+    runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
       matrix:
@@ -49,17 +53,17 @@ jobs:
 
     - name: Upgrade pip
       run: |
-        pip install pip
+        pip install pip==${{ env.PIP_VERSION }}
         pip --version
 
     - name: Install Poetry
       run: |
-        pipx install poetry
+        pipx install poetry==${{ env.POETRY_VERSION }}
         poetry --version
 
     - name: Install tox
       run: |
-        pipx install tox
+        pipx install tox==${{ env.TOX_VERSION }}
         tox --version
 
     - name: Run lint command from tox.ini
@@ -71,16 +75,3 @@ jobs:
         TAP_POMELO_START_DATE: ${{ secrets.TAP_POMELO_START_DATE }}
       run: |
         tox -e py$(echo ${{ matrix.python-version }} | tr -d .)
-
-  pre-commit:
-    runs-on: ubuntu-latest
-    env:
-      FORCE_COLOR: "1"
-    steps:
-    - uses: actions/checkout@v4
-    - uses: actions/setup-python@v5
-      with:
-        python-version: "3.11"
-    - uses: pre-commit/action@v3.0.1
-    - uses: pre-commit-ci/lite-action@v1.1.0
-      if: always()
