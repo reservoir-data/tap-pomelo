@@ -29,7 +29,7 @@ env:
   # renovate: datasource=pypi depName=pip
   PIP_VERSION: 24.3.1
   # renovate: datasource=pypi depName=poetry
-  POETRY_VERSION: 1.8.5
+  POETRY_VERSION: 2.0.1
   # renovate: datasource=pypi depName=tox
   TOX_VERSION: 4.23.2
 
