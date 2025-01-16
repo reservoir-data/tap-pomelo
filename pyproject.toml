@@ -1,7 +1,7 @@
 [build-system]
 build-backend = "poetry.core.masonry.api"
 requires = [
-  "poetry-core>=1,<2",
+  "poetry-core==2.0.1",
 ]
 
 [tool.poetry]
@@ -31,7 +31,7 @@ scripts."tap-pomelo" = "tap_pomelo.tap:TapPomelo.cli"
 python = ">=3.11"
 singer-sdk = "~=0.43.1"
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 singer-sdk = { version = "*", extras = [ "testing" ] }
 
 [tool.ruff]
