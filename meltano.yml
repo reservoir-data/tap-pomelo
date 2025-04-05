@@ -9,7 +9,7 @@ plugins:
     label: Pomelo
     namespace: pomelo
     description: Tecnología para lanzar y escalar servicios financieros en América Latina
-    repository: https://github.com/edgarrmondragon/tap-pomelo
+    repo: https://github.com/edgarrmondragon/tap-pomelo
     docs: https://github.com/edgarrmondragon/tap-pomelo#readme
     pip_url: -e .
     capabilities:
