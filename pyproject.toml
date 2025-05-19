@@ -30,7 +30,7 @@ scripts."tap-pomelo" = "tap_pomelo.tap:TapPomelo.cli"
 
 [tool.poetry.dependencies]
 python = ">=3.11"
-singer-sdk = "~=0.45.2"
+singer-sdk = "~=0.46.0"
 
 [tool.poetry.group.dev.dependencies]
 singer-sdk = { version = "*", extras = [ "testing" ] }
