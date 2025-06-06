@@ -1,43 +1,45 @@
 [build-system]
-build-backend = "poetry.core.masonry.api"
-requires = [
-  "poetry-core==2.1.2",
-]
+build-backend = "hatchling.build"
 
-[tool.poetry]
+requires = [ "hatch-vcs==0.5", "hatchling==1.27" ]
+
+[project]
 name = "tap-pomelo"
 version = "0.0.1"
 description = "Singer tap for Pomelo, built with the Meltano SDK for Singer Taps."
-authors = [ "Edgar-Ramírez <edgarrm358@gmail.com>" ]
-maintainers = [ "Edgar-Ramírez <edgarrm358@gmail.com>" ]
+readme = "README.md"
+keywords = [
+  "ELT",
+  "Pomelo",
+  "singer.io",
+]
+license = "Apache-2.0"
+maintainers = [ { name = "Edgar-Ramírez", email = "edgarrm358@gmail.com" } ]
+authors = [ { name = "Edgar-Ramírez", email = "edgarrm358@gmail.com" } ]
+requires-python = ">=3.11"
 classifiers = [
+  "Programming Language :: Python :: 3 :: Only",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
 ]
-keywords = [
-  "ELT",
-  "singer.io",
-  "Pomelo",
+dependencies = [ "singer-sdk~=0.46.0" ]
+
+urls.Documentation = "https://github.com/edgarrmondragon/tap-pomelo#readme"
+urls.Homepage = "https://github.com/edgarrmondragon/tap-pomelo"
+urls.Repository = "https://github.com/edgarrmondragon/tap-pomelo"
+scripts.tap-pomelo = "tap_pomelo.tap:TapPomelo.cli"
+
+[dependency-groups]
+dev = [
+  { include-group = "testing" },
 ]
-license = "Apache-2.0"
-readme = "README.md"
-homepage = "https://github.com/edgarrmondragon/tap-pomelo"
-repository = "https://github.com/edgarrmondragon/tap-pomelo"
-documentation = "https://github.com/edgarrmondragon/tap-pomelo#readme"
-scripts."tap-pomelo" = "tap_pomelo.tap:TapPomelo.cli"
-
-[tool.poetry.dependencies]
-python = ">=3.11"
-singer-sdk = "~=0.46.0"
-
-[tool.poetry.group.dev.dependencies]
-singer-sdk = { version = "*", extras = [ "testing" ] }
+testing = [
+  "singer-sdk[testing]",
+]
 
 [tool.ruff]
-target-version = "py311"
-
 line-length = 88
 lint.select = [
   "ALL",
@@ -64,6 +66,23 @@ max_supported_python = "3.14"
 
 [tool.pytest.ini_options]
 addopts = "-vvv"
+
+[tool.tox]
+min_version = "4.22"
+requires = [ "tox", "tox-uv" ]
+isolated_build = true
+env_list = [
+  "3.14",
+  "3.13",
+  "3.12",
+  "3.11",
+]
+
+[tool.tox.env_run_base]
+runner = "uv-venv-lock-runner"
+pass_env = [ "TAP_POMELO_*" ]
+dependency_groups = [ "testing" ]
+commands = [ [ "pytest", { replace = "posargs", default = [ "tests" ], extend = true } ] ]
 
 [tool.mypy]
 warn_unused_configs = true

@@ -6,38 +6,37 @@ on:
     paths:
     - tap_pomelo/**
     - tests/**
-    - poetry.lock
     - pyproject.toml
+    - uv.lock
     - .github/workflows/test.yml
-    - .github/workflows/constraints.txt
   pull_request:
     types: [opened, synchronize, reopened]
     paths:
     - tap_pomelo/**
     - tests/**
-    - poetry.lock
     - pyproject.toml
+    - uv.lock
     - .github/workflows/test.yml
-    - .github/workflows/constraints.txt
   workflow_dispatch:
   schedule:
   # Run weekly on Monday at 12:00 PM UTC
   - cron: "0 12 * * 1"
 
 env:
-  FORCE_COLOR: "1"
-  # renovate: datasource=pypi depName=pip
-  PIP_VERSION: 25.1
-  # renovate: datasource=pypi depName=poetry
-  POETRY_VERSION: 2.1.2
+  FORCE_COLOR: 1
+  # renovate: datasource=pypi depName=uv
+  UV_VERSION: 0.7.11
   # renovate: datasource=pypi depName=tox
   TOX_VERSION: 4.26.0
+  # renovate: datasource=pypi depName=tox-uv
+  TOX_UV_VERSION: 1.26.0
 
 jobs:
   test:
     runs-on: ubuntu-24.04
     strategy:
       fail-fast: false
+      max-parallel: 2
       matrix:
         python-version:
         - "3.11"
@@ -51,28 +50,18 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
         allow-prereleases: true
-
-    - name: Upgrade pip
-      run: |
-        pip install pip==${{ env.PIP_VERSION }}
-        pip --version
-
-    - name: Install Poetry
-      run: |
-        pipx install poetry==${{ env.POETRY_VERSION }}
-        poetry --version
-
-    - name: Install tox
-      run: |
-        pipx install tox==${{ env.TOX_VERSION }}
-        tox --version
-
-    - name: Run lint command from tox.ini
+    - uses: astral-sh/setup-uv@6b9c6063abd6010835644d4c2e1bef4cf5cd0fca # v6.0.1
+      with:
+        version: ${{ env.UV_VERSION }}
+    - name: Run
       env:
         TAP_POMELO_API_URL: ${{ secrets.TAP_POMELO_API_URL }}
         TAP_POMELO_AUDIENCE: ${{ secrets.TAP_POMELO_AUDIENCE }}
         TAP_POMELO_CLIENT_ID: ${{ secrets.TAP_POMELO_CLIENT_ID }}
         TAP_POMELO_CLIENT_SECRET: ${{ secrets.TAP_POMELO_CLIENT_SECRET }}
         TAP_POMELO_START_DATE: ${{ secrets.TAP_POMELO_START_DATE }}
-      run: |
+      run: >
+        uvx
+        --with tox-uv==${{ env.TOX_UV_VERSION }}
+        --with tox==${{ env.TOX_VERSION }}
         tox -e py$(echo ${{ matrix.python-version }} | tr -d .)
