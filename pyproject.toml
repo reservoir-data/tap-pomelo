@@ -26,9 +26,9 @@ classifiers = [
 ]
 dependencies = [ "singer-sdk~=0.47.1" ]
 
-urls.Documentation = "https://github.com/edgarrmondragon/tap-pomelo#readme"
-urls.Homepage = "https://github.com/edgarrmondragon/tap-pomelo"
-urls.Repository = "https://github.com/edgarrmondragon/tap-pomelo"
+urls.Documentation = "https://github.com/reservoir-data/tap-pomelo#readme"
+urls.Homepage = "https://github.com/reservoir-data/tap-pomelo"
+urls.Repository = "https://github.com/reservoir-data/tap-pomelo"
 scripts.tap-pomelo = "tap_pomelo.tap:TapPomelo.cli"
 
 [dependency-groups]
