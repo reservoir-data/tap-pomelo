@@ -2,64 +2,54 @@
 
 from __future__ import annotations
 
-from typing import Any
+import sys
+from typing import TYPE_CHECKING, Any
 
 from singer_sdk import RESTStream
+from singer_sdk.pagination import BasePageNumberPaginator
 
 from tap_pomelo.auth import PomeloAuthenticator
 
+if sys.version_info >= (3, 12):
+    from typing import override
+else:
+    from typing_extensions import override
 
-class PomeloStream(RESTStream):
+if TYPE_CHECKING:
+    from singer_sdk.helpers.types import Context
+
+
+class PomeloStream(RESTStream[int]):
     """Pomelo stream class."""
 
-    records_jsonpath = "$.data[*]"  # Or override `parse_response`.
-    next_page_token_jsonpath = "$.next_page"  # noqa: S105
+    records_jsonpath = "$.data[*]"
 
     @property
+    @override
     def url_base(self) -> str:
-        """Return the API URL root, configurable via tap settings.
-
-        Returns:
-            The API URL root, configurable via tap settings.
-        """
-        return self.config["api_url"]
+        return self.config["api_url"]  # type: ignore[no-any-return]
 
     @property
+    @override
     def authenticator(self) -> PomeloAuthenticator:
-        """Get an authenticator object.
-
-        Returns:
-            The authenticator instance for this REST stream.
-        """
         return PomeloAuthenticator(
-            self,
+            client_id=self.config["client_id"],
+            client_secret=self.config["client_secret"],
+            audience=self.config["audience"],
             auth_endpoint=self.config["api_url"] + "/oauth/token",
         )
 
-    @property
-    def http_headers(self) -> dict:
-        """Return the http headers needed.
+    @override
+    def get_new_paginator(self) -> BasePageNumberPaginator:
+        return BasePageNumberPaginator(start_value=0)
 
-        Returns:
-            A dictionary of HTTP headers.
-        """
-        headers = {}
-        headers["User-Agent"] = f"{self.tap_name}/{self._tap.plugin_version}"
-        return headers
-
+    @override
     def get_url_params(
         self,
-        context: dict | None,  # noqa: ARG002
-        next_page_token: Any | None,  # noqa: ARG002, ANN401
+        context: Context | None,
+        next_page_token: int | None,
     ) -> dict[str, Any]:
-        """Get URL query parameters.
-
-        Args:
-            context: Stream sync context.
-            next_page_token: Next offset.
-
-        Returns:
-            Mapping of URL query parameters.
-        """
-        params: dict = {}
-        return params
+        return {
+            "page[number]": next_page_token or 0,
+            "page[size]": 500,
+        }

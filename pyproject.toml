@@ -24,7 +24,10 @@ classifiers = [
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
 ]
-dependencies = [ "singer-sdk~=0.49.1" ]
+dependencies = [
+  "singer-sdk~=0.49.1",
+  "typing-extensions>=4.15; python_full_version<'3.12'",
+]
 
 urls.Documentation = "https://github.com/reservoir-data/tap-pomelo#readme"
 urls.Homepage = "https://github.com/reservoir-data/tap-pomelo"
@@ -34,9 +37,15 @@ scripts.tap-pomelo = "tap_pomelo.tap:TapPomelo.cli"
 [dependency-groups]
 dev = [
   { include-group = "testing" },
+  { include-group = "typing" },
 ]
 testing = [
   "singer-sdk[testing]",
+]
+typing = [
+  "mypy>=1.18.2",
+  "ty>=0.0.1a21",
+  { include-group = "testing" },
 ]
 
 [tool.ruff]
@@ -55,6 +64,8 @@ lint.per-file-ignores."tests/*" = [
   "S101",   # assert
   "SLF001", # private-member-access
 ]
+lint.flake8-annotations.allow-star-arg-any = true
+
 lint.isort.known-first-party = [ "tap_pomelo" ]
 lint.isort.required-imports = [
   "from __future__ import annotations",
@@ -83,6 +94,13 @@ runner = "uv-venv-lock-runner"
 pass_env = [ "TAP_POMELO_*" ]
 dependency_groups = [ "testing" ]
 commands = [ [ "pytest", { replace = "posargs", default = [ "tests" ], extend = true } ] ]
+
+[tool.tox.env.typing]
+dependency_groups = [ "testing", "typing" ]
+commands = [
+  [ "mypy", "--strict", { replace = "posargs", default = [ "tap_pomelo", "tests" ], extend = true } ],
+  [ "ty", "check", { replace = "posargs", default = [ "tap_pomelo", "tests" ], extend = true } ],
+]
 
 [tool.mypy]
 warn_unused_configs = true
