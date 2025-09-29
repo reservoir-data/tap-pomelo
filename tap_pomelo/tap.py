@@ -48,11 +48,6 @@ class TapPomelo(Tap):
             description="Base URL for the API",
             default="https://api.pomelo.la",
         ),
-        th.Property(
-            "start_date",
-            th.DateTimeType,
-            description="Earliest datetime to get data from",
-        ),
     ).to_dict()
 
     @override
