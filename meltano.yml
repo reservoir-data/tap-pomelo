@@ -17,7 +17,6 @@ plugins:
     - catalog
     - discover
     settings:
-    # TODO: To configure using Meltano, declare settings and their types here:
     - name: client_id
       kind: password
       label: Client ID
