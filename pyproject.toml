@@ -16,10 +16,9 @@ keywords = [
 license = "Apache-2.0"
 maintainers = [ { name = "Edgar-Ramírez", email = "edgarrm358@gmail.com" } ]
 authors = [ { name = "Edgar-Ramírez", email = "edgarrm358@gmail.com" } ]
-requires-python = ">=3.11"
+requires-python = ">=3.12"
 classifiers = [
   "Programming Language :: Python :: 3 :: Only",
-  "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
@@ -86,7 +85,6 @@ env_list = [
   "3.14",
   "3.13",
   "3.12",
-  "3.11",
 ]
 
 [tool.tox.env_run_base]
