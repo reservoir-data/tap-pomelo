@@ -16,15 +16,15 @@ class PomeloAuthenticator(OAuthAuthenticator, metaclass=SingletonMeta):
         self.audience = audience
 
     @property
-    def oauth_request_body(self) -> dict[str, str]:
+    def oauth_request_body(self) -> dict[str, str | None]:
         """Define the OAuth request body for the Pomelo API.
 
         Returns:
             Dictionary with request body for OAuth endpoint.
         """
         return {
-            "client_id": self.client_id,  # type: ignore[dict-item]
-            "client_secret": self.client_secret,  # type: ignore[dict-item]
+            "client_id": self.client_id,
+            "client_secret": self.client_secret,
             "audience": self.audience,
             "grant_type": "client_credentials",
         }
