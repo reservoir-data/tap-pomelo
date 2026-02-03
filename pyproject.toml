@@ -87,18 +87,18 @@ env_list = [
   "3.12",
 ]
 
-[tool.tox.env_run_base]
-runner = "uv-venv-lock-runner"
-pass_env = [ "TAP_POMELO_*" ]
-dependency_groups = [ "testing" ]
-commands = [ [ "pytest", { replace = "posargs", default = [ "tests" ], extend = true } ] ]
-
 [tool.tox.env.typing]
 dependency_groups = [ "testing", "typing" ]
 commands = [
   [ "mypy", "--strict", { replace = "posargs", default = [ "tap_pomelo", "tests" ], extend = true } ],
   [ "ty", "check", { replace = "posargs", default = [ "tap_pomelo", "tests" ], extend = true } ],
 ]
+
+[tool.tox.env_run_base]
+runner = "uv-venv-lock-runner"
+pass_env = [ "TAP_POMELO_*" ]
+dependency_groups = [ "testing" ]
+commands = [ [ "pytest", { replace = "posargs", default = [ "tests" ], extend = true } ] ]
 
 [tool.mypy]
 warn_unused_configs = true
