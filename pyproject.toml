@@ -1,6 +1,5 @@
 [build-system]
 build-backend = "hatchling.build"
-
 requires = [ "hatch-vcs==0.5", "hatchling==1.28" ]
 
 [project]
@@ -27,7 +26,6 @@ dependencies = [
   "singer-sdk~=0.53.2",
   "typing-extensions>=4.15; python_full_version<'3.12'",
 ]
-
 urls.Documentation = "https://github.com/reservoir-data/tap-pomelo#readme"
 urls.Homepage = "https://github.com/reservoir-data/tap-pomelo"
 urls.Repository = "https://github.com/reservoir-data/tap-pomelo"
@@ -64,7 +62,6 @@ lint.per-file-ignores."tests/*" = [
   "SLF001", # private-member-access
 ]
 lint.flake8-annotations.allow-star-arg-any = true
-
 lint.isort.known-first-party = [ "tap_pomelo" ]
 lint.isort.required-imports = [
   "from __future__ import annotations",
@@ -74,8 +71,8 @@ lint.pydocstyle.convention = "google"
 [tool.pyproject-fmt]
 max_supported_python = "3.14"
 
-[tool.pytest.ini_options]
-addopts = "-vvv"
+[tool.pytest]
+ini_options.addopts = "-vvv"
 
 [tool.tox]
 min_version = "4.22"
@@ -86,19 +83,15 @@ env_list = [
   "3.13",
   "3.12",
 ]
-
-[tool.tox.env.typing]
-dependency_groups = [ "testing", "typing" ]
-commands = [
+env.typing.dependency_groups = [ "testing", "typing" ]
+env.typing.commands = [
   [ "mypy", "--strict", { replace = "posargs", default = [ "tap_pomelo", "tests" ], extend = true } ],
   [ "ty", "check", { replace = "posargs", default = [ "tap_pomelo", "tests" ], extend = true } ],
 ]
-
-[tool.tox.env_run_base]
-runner = "uv-venv-lock-runner"
-pass_env = [ "TAP_POMELO_*" ]
-dependency_groups = [ "testing" ]
-commands = [ [ "pytest", { replace = "posargs", default = [ "tests" ], extend = true } ] ]
+env_run_base.runner = "uv-venv-lock-runner"
+env_run_base.pass_env = [ "TAP_POMELO_*" ]
+env_run_base.dependency_groups = [ "testing" ]
+env_run_base.commands = [ [ "pytest", { replace = "posargs", default = [ "tests" ], extend = true } ] ]
 
 [tool.mypy]
 warn_unused_configs = true
