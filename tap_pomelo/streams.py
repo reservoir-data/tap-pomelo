@@ -225,7 +225,10 @@ class Cards(PomeloStream):
         th.Property("shipment_id", th.StringType),
         th.Property("user_id", th.StringType),
         th.Property("start_date", th.DateType),
-        th.Property("1573", th.StringType),
+        th.Property("last_four", th.StringType),
         th.Property("provider", th.StringType),
         th.Property("affinity_group_name", th.StringType),
+        th.Property("company", th.StringType),
+        th.Property("name_on_card", th.StringType),
+        th.Property("parent_id", th.StringType),
     ).to_dict()
