@@ -22,7 +22,6 @@ classifiers = [
 ]
 dependencies = [
   "singer-sdk~=0.54.0a5",
-  "typing-extensions>=4.15; python_full_version<'3.12'",
 ]
 [[project.authors]]
 name = "Edgar-Ramírez"
