@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING, Any, override
 
 from singer_sdk import RESTStream
-from singer_sdk.pagination import BasePageNumberPaginator
+from singer_sdk.pagination import PageNumberPaginator
 
 from tap_pomelo.auth import PomeloAuthenticator
 
@@ -34,8 +34,8 @@ class PomeloStream(RESTStream[int]):
         )
 
     @override
-    def get_new_paginator(self) -> BasePageNumberPaginator:
-        return BasePageNumberPaginator(start_value=0)
+    def get_new_paginator(self) -> PageNumberPaginator:
+        return PageNumberPaginator(start_value=0)
 
     @override
     def get_url_params(
