@@ -4,7 +4,6 @@ requires = [ "hatch-vcs==0.5", "hatchling==1.28" ]
 
 [project]
 name = "tap-pomelo"
-version = "0.0.1"
 description = "Singer tap for Pomelo, built with the Meltano SDK for Singer Taps."
 readme = "README.md"
 keywords = [
@@ -19,6 +18,9 @@ classifiers = [
   "Programming Language :: Python :: 3.12",
   "Programming Language :: Python :: 3.13",
   "Programming Language :: Python :: 3.14",
+]
+dynamic = [
+  "version",
 ]
 dependencies = [
   "singer-sdk~=0.54.0a5",
@@ -38,6 +40,7 @@ Repository = "https://github.com/reservoir-data/tap-pomelo"
 
 [dependency-groups]
 dev = [
+  "deptry>=0.25.1",
   { include-group = "testing" },
   { include-group = "typing" },
 ]
@@ -45,10 +48,17 @@ testing = [
   "singer-sdk[testing]",
 ]
 typing = [
-  "mypy>=1.18.2",
-  "ty>=0.0.1a21",
+  "mypy>=2.1",
+  "ty>=0.0.40",
   { include-group = "testing" },
 ]
+
+[tool.hatch.version]
+fallback-version = "0.0.0.dev0"
+source = "vcs"
+
+[tool.uv]
+required-version = ">=0.11"
 
 [tool.ruff]
 line-length = 88
@@ -68,23 +78,26 @@ per-file-ignores."tests/*" = [
   "SLF001", # private-member-access
 ]
 flake8-annotations.allow-star-arg-any = true
-isort.known-first-party = [ "tap_pomelo" ]
-isort.required-imports = [
-  "from __future__ import annotations",
-]
 pydocstyle.convention = "google"
 
 [tool.pyproject-fmt]
 table_format = "long"
 
 [tool.mypy]
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_return_any = true
+warn_unreachable = true
 enable_error_code = [ "ignore-without-code", "redundant-expr", "truthy-bool" ]
 strict = true
-warn_unreachable = true
 warn_unused_configs = true
 
 [tool.pytest]
-addopts = [ "-vvv", "-ra", "--strict-config", "--strict-markers" ]
+addopts = [
+  "-v",
+  "-ra",
+]
 filterwarnings = [
   "error",
   "once:Fields in transformed catalog but not in records:UserWarning",
@@ -93,27 +106,30 @@ log_level = "INFO"
 minversion = "9"
 strict = true
 testpaths = [ "tests" ]
-xfail_strict = true
 
 [tool.tox]
-min_version = "4.43"
-requires = [ "tox", "tox-uv" ]
-isolated_build = true
+requires = [ "tox>=4.55", "tox-uv>=1.35" ]
 env_list = [
+  "dependencies",
   "typing",
-  { product = [
-    { prefix = "3.", start = 12 },
-  ] },
+  { prefix = "3.", start = 12 },
 ]
-[tool.tox.env]
-typing.dependency_groups = [ "testing", "typing" ]
-typing.commands = [
+[tool.tox.env.dependencies]
+description = "check for unused, missing and transitive dependencies"
+dependency_groups = [ "dev" ]
+commands = [ [ "deptry", "." ] ]
+[tool.tox.env.typing]
+description = "type checks"
+dependency_groups = [ "testing", "typing" ]
+commands = [
   [ "mypy", { replace = "posargs", default = [ "tap_pomelo", "tests" ], extend = true } ],
   [ "ty", "check", { replace = "posargs", default = [ "tap_pomelo", "tests" ], extend = true } ],
 ]
 
 [tool.tox.env_run_base]
 runner = "uv-venv-lock-runner"
-pass_env = [ "TAP_POMELO_*" ]
+description = "run unit tests on Python {py_dot_ver}"
 dependency_groups = [ "testing" ]
+pass_env = [ "TAP_POMELO_*" ]
 commands = [ [ "pytest", { replace = "posargs", default = [ "tests" ], extend = true } ] ]
+base_python_file = [ ".python-version" ]
