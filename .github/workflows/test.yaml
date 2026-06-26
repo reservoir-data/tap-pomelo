@@ -78,9 +78,9 @@ jobs:
         MATRIX_PYTHON_VERSION: ${{ matrix.python-version }}
       run: >
         uvx
-        --with tox-uv==${TOX_UV_VERSION}
-        --with tox==${TOX_VERSION}
-        tox -e ${MATRIX_PYTHON_VERSION}
+        --with tox-uv=="${TOX_UV_VERSION}"
+        --with tox=="${TOX_VERSION}"
+        tox -e "${MATRIX_PYTHON_VERSION}"
 
   lint:
     name: Lint
@@ -92,9 +92,7 @@ jobs:
     - uses: astral-sh/setup-uv@eac588ad8def6316056a12d4907a9d4d84ff7a3b # v7.3.0
       with:
         version: ${{ env.UV_VERSION }}
-    - env:
-        UV_PYTHON: ${{ steps.setup-python.outputs.python-path }}
-      run: uv tool install --with tox-uv==${TOX_UV_VERSION} --from tox==${TOX_VERSION} tox
+    - run: uv tool install --with tox-uv=="${TOX_UV_VERSION}" --from tox=="${TOX_VERSION}" tox
     - name: Static type checking
       run: tox -e typing
     - name: Unused, missing and transitive dependencies

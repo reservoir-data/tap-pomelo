@@ -53,3 +53,8 @@ repos:
   rev: v1.47.0
   hooks:
   - id: typos
+
+- repo: https://github.com/rhysd/actionlint
+  rev: v1.7.12
+  hooks:
+  - id: actionlint
