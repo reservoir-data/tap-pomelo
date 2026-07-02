@@ -23,7 +23,7 @@ dynamic = [
   "version",
 ]
 dependencies = [
-  "singer-sdk~=0.54.0a5",
+  "singer-sdk~=0.55.0a1",
 ]
 [[project.authors]]
 name = "Edgar-Ramírez"
