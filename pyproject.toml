@@ -67,7 +67,7 @@ select = [
   "ALL",
 ]
 ignore = [
-  "DJ", # flake8-django
+  "CPY001", # missing-copyright-notice
 ]
 per-file-ignores."noxfile.py" = [
   "ANN",
