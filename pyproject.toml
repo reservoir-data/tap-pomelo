@@ -26,18 +26,18 @@ dynamic = [
 dependencies = [
   "singer-sdk~=0.55.0a1",
 ]
-[[project.authors]]
-name = "Edgar-Ramírez"
-email = "edgarrm358@gmail.com"
 [[project.maintainers]]
 name = "Edgar-Ramírez"
 email = "edgarrm358@gmail.com"
-[project.scripts]
-tap-pomelo = "tap_pomelo.tap:TapPomelo.cli"
+[[project.authors]]
+name = "Edgar-Ramírez"
+email = "edgarrm358@gmail.com"
 [project.urls]
 Documentation = "https://github.com/reservoir-data/tap-pomelo#readme"
 Homepage = "https://github.com/reservoir-data/tap-pomelo"
 Repository = "https://github.com/reservoir-data/tap-pomelo"
+[project.scripts]
+tap-pomelo = "tap_pomelo.tap:TapPomelo.cli"
 
 [dependency-groups]
 dev = [
@@ -55,8 +55,8 @@ typing = [
 ]
 
 [tool.hatch.version]
-fallback-version = "0.0.0.dev0"
 source = "vcs"
+fallback-version = "0.0.0.dev0"
 
 [tool.uv]
 required-version = ">=0.11"
